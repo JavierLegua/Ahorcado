@@ -1,4 +1,4 @@
-package Ahorcado;
+package Juego;
 
 public class JuegoAhorcado {
 
@@ -8,7 +8,7 @@ public class JuegoAhorcado {
 			System.out.println("______________________");
 			break;
 		case 6:
-
+			sout
 			break;
 		case 5:
 
