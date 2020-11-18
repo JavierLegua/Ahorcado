@@ -3,8 +3,8 @@ package Juego;
 import java.util.Scanner;
 
 public class JuegoAhorcado {
-
-	public static void dibujarPalitrokes(int vidas) {
+	// Pinta el muñeco en pantalla dependiendo de las vidas
+	public static void dibujarMuneco(int vidas) {
 		switch (vidas) {
 		case 7:
 			System.out.println("");
@@ -32,8 +32,8 @@ public class JuegoAhorcado {
 		case 4:
 			System.out.println("___________");
 			System.out.println("|          _|_");
-			System.out.println("|         |   |");
-			System.out.println("|         |_ _| ");
+			System.out.println("|         | oo|");
+			System.out.println("|         |__/| ");
 			System.out.println("|");
 			System.out.println("|");
 			System.out.println("|");
@@ -47,13 +47,13 @@ public class JuegoAhorcado {
 			break;
 		case 3:
 			System.out.println("__________");
-			System.out.println("|         _|_");
-			System.out.println("|        |   |");
-			System.out.println("|        |_ _| ");
+			System.out.println("|        _|_");
+			System.out.println("|        | oo|");
+			System.out.println("|        |_ /| ");
 			System.out.println("|          |");
 			System.out.println("|          |");
-			System.out.println("|		   |");
-			System.out.println("|		   |");
+			System.out.println("|          |");
+			System.out.println("|          |");
 			System.out.println("|			   		");
 			System.out.println("|");
 			System.out.println("|");
@@ -62,41 +62,42 @@ public class JuegoAhorcado {
 
 			break;
 		case 2:
-			System.out.println("_______________");
-			System.out.println("|              _|_");
-			System.out.println("|             |   |");
-			System.out.println("|             |_ _| ");
-			System.out.println("|               |");
-			System.out.println("|         ______|______");
-			System.out.println("|				|");
-			System.out.println("|				|");
+			System.out.println("__________");
+			System.out.println("|        _|_");
+			System.out.println("|        | oo|");
+			System.out.println("|        |_ /| ");
+			System.out.println("|          |");
+			System.out.println("|     -----|-----");
+			System.out.println("|          |");
+			System.out.println("|          |");
 			System.out.println("|			   		");
 			System.out.println("|");
 			System.out.println("|");
 			System.out.println("|");
 			System.out.println("|______________");
 
+
 			break;
 		case 1:
-			System.out.println("_______________");
-			System.out.println("|              _|_");
-			System.out.println("|             |   |");
-			System.out.println("|             |_ _| ");
-			System.out.println("|               |");
-			System.out.println("|         ______|_____");
-			System.out.println("|				|");
-			System.out.println("|			    |");
-			System.out.println("|			   /| 	");
-			System.out.println("|             / |  ");
-			System.out.println("|");
-			System.out.println("|");
-			System.out.println("|_____________________________");
+			System.out.println("__________");
+			System.out.println("|        _|_");
+			System.out.println("|        | xx|");
+			System.out.println("|        |_ /| ");
+			System.out.println("|          |");
+			System.out.println("|     -----|-----");
+			System.out.println("|          |");
+			System.out.println("|          |");
+			System.out.println("|        /   \\");
+			System.out.println("|       /     \\");
+			System.out.println("|      /       \\");
+			System.out.println("|     /         \\");
+			System.out.println("|______________");
+
 
 			break;
 		case 0:
 
 			break;
-
 		}
 	}
 
@@ -111,13 +112,14 @@ public class JuegoAhorcado {
 	public static void inicializarVectores(String palabra, String vPalabraSecreta[], String vAciertos[],
 			String vFallos[]) {
 		for (int i = 0; i < vFallos.length; i++) {
-			vFallos[i] = "_ ";
+			vFallos[i] = "_";
 		}
 		for (int i = 0; i < vPalabraSecreta.length; i++) {
 			// Trocear la palabra en letras al vector
-
-			vAciertos[i] = "_ ";
+			vPalabraSecreta[i] = palabra.substring(i, i + 1);
+			vAciertos[i] = "_";
 		}
+
 	}
 
 	public static void dibujarAciertorErrores(String[] vFallos, String[] vAciertos) {
@@ -135,20 +137,53 @@ public class JuegoAhorcado {
 		// Imprimir los aciertos
 		for (int i = 0; i < vAciertos.length; i++) {
 			System.out.print(vAciertos[i] + " ");
-		}
+		} 
+		System.out.println("");
 	}
 
 	// Comprobar que la letra está en vPalabraSecreta
 	// Si esta la guardo en vAciertos, sino la guardo en vFallos
 	public static int comprobarLetraIntroducida(int vidas, String letra, String[] vPalabraSecreta, String[] vAciertos,
 			String[] vFallos) {
-		
+		boolean encontrado = false;
+
+		for (int i = 0; i < vPalabraSecreta.length; i++) {
+			if (letra.equalsIgnoreCase(vPalabraSecreta[i])) {
+				vAciertos[i] = letra;
+				encontrado = true;
+			}
+		}
+
+		if (encontrado == false) {
+			for (int i = 0; i < vFallos.length; i++) {
+				if (vFallos[i].equals("_")) {
+					vFallos[i] = letra;
+					vidas--;
+					break;
+				}
+			}
+		}
+
 		return vidas;
 	}
 
-	public static void main(String[] args) {
+	public static boolean heGanado(String vAciertos[]) {
 
-		// vidas totales 7
+		//boolean ganado = false;
+		
+		for (int i = 0; i < vAciertos.length; i++) {
+			if (vAciertos[i].equals("_")) {
+				return false;
+				//ganado=false;
+				//break;
+			}
+		}
+		//return ganado;
+		return true;
+	}
+
+	public static void main(String[] args) {
+		// Vidas totales 7
 		Scanner leer = new Scanner(System.in);
 		int vidas = 8;
 		String palabraSecreta = "Juan";
@@ -164,20 +199,16 @@ public class JuegoAhorcado {
 			System.out.println("Dime una letra");
 			letra = leer.next();
 			// 2º Comprobar si la letra está en la palabra
+			vidas = comprobarLetraIntroducida(vidas, letra, vPalabraSecreta, vAciertos, vFallos);
 
 			// 3º Dibujar muñeco
-			dibujarPalitrokes(vidas);
+			dibujarMuneco(vidas);
 			// 4º Dibujar aciertos y errores
-			vidas--;
-		} while (vidas >= 0);
-		// estructura general
-		do {
-			// preguntar letra
-			// comparar letra con palabra
-			dibujarPalitrokes(vidas);
-			// dibujar aciertos y errores
-			vidas--;
+			dibujarAciertorErrores(vFallos, vAciertos);
 
-		} while (vidas >= 0);
+		} while (vidas >= 0 && heGanado(vAciertos) == false);
+			System.out.println("");
+			System.out.println("GANASTE!!!!!!");
 	}
+
 }
