@@ -167,6 +167,7 @@ public class JuegoAhorcado {
 		return vidas;
 	}
 
+	//Cambio
 	public static boolean heGanado(String vAciertos[]) {
 
 		//boolean ganado = false;
