@@ -1,5 +1,6 @@
 package Juego;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class JuegoAhorcado {
@@ -182,17 +183,27 @@ public class JuegoAhorcado {
 		//return ganado;
 		return true;
 	}
-
+	
+	public static String generarPalabra() {
+		String palabra;
+		int num;
+		String vPalabraSecreta[] = {"hola", "adios", "mañana", "ayer", "javier", "esternocleidomastoideo", "juanfran", "kacper", "informatica", "alloza"};
+		Random r = new Random();
+		num = r.nextInt(vPalabraSecreta.length);
+		palabra=vPalabraSecreta[num];
+		return palabra;
+	}
+	
 	public static void main(String[] args) {
 		// Vidas totales 7
 		Scanner leer = new Scanner(System.in);
-		int vidas = 8;
-		String palabraSecreta = "Juan";
+		int vidas = 7 ;
+		String palabraSecreta = generarPalabra();
 		String letra;
-		String vPalabraSecreta[], vAciertos[], vFallos[];
-		vPalabraSecreta = new String[palabraSecreta.length()];
+		String vAciertos[], vFallos[];
+		String vPalabraSecreta[] = new String[palabraSecreta.length()];
 		vAciertos = new String[palabraSecreta.length()];
-		vFallos = new String[vidas];
+		vFallos = new String[vidas+1];
 		inicializarVectores(palabraSecreta, vPalabraSecreta, vAciertos, vFallos);
 		// Estructura general del juego
 		do {
@@ -207,9 +218,12 @@ public class JuegoAhorcado {
 			// 4º Dibujar aciertos y errores
 			dibujarAciertorErrores(vFallos, vAciertos);
 
-		} while (vidas >= 0 && heGanado(vAciertos) == false);
+		} while (vidas > 1 && heGanado(vAciertos) == false);
 			System.out.println("");
-			System.out.println("GANASTE!!!!!!");
+			if (vidas>1)
+				System.out.println("GANASTE!!!!!!");
+			else
+				System.out.println("Has perdido");
 	}
 
 }
