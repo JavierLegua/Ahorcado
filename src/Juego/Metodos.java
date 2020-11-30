@@ -2,7 +2,7 @@ package Juego;
 
 import java.util.Random;
 
-public class metodos {
+public class Metodos {
 
 	// Pinta el muñeco en pantalla dependiendo de las vidas
 	public static void dibujarMuneco(int vidas) {
